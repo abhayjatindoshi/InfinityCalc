@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Keyboard -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+
+        <!-- Left Part (Numeric) -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content">
+
+            <!-- Background left -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/keyboard_height"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical">
+
+                <!-- Keys Row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/keyboard_row_height"
+                    android:orientation="horizontal"
+                    style="?attr/buttonBarStyle">
+                    <!-- TODO: Planning to add a view pager for different keyboards or layouts like dec/bin/hex/oct then, % M+ M- Mrc etc -->
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="DEC"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textSize="18sp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="AC"/>
+                    <ImageButton
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_backspace_black_24dp"
+                        android:contentDescription="@string/keyboard_button_delete" />
+                </LinearLayout>
+
+
+                <!-- Keys Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/keyboard_row_height"
+                    android:orientation="horizontal"
+                    style="?attr/buttonBarStyle">
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_7"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_8"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_9"/>
+                </LinearLayout>
+
+                <!-- Keys Row 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/keyboard_row_height"
+                    android:orientation="horizontal"
+                    style="?attr/buttonBarStyle">
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_4"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_5"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_6"/>
+                </LinearLayout>
+
+                <!-- Keys Row 4 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/keyboard_row_height"
+                    android:orientation="horizontal"
+                    style="?attr/buttonBarStyle">
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_1"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_2"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_3"/>
+                </LinearLayout>
+
+                <!-- Keys Row 5 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/keyboard_row_height"
+                    android:orientation="horizontal"
+                    style="?attr/buttonBarStyle">
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_dot"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_0"/>
+                    <Button
+                        android:textColor="@color/black_text"
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="match_parent"
+                        android:text="@string/keyboard_button_equal"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Center vertical shadow -->
+            <ImageView
+                android:layout_width="@dimen/shadow_width"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:src="@drawable/vertical_shadow"
+                android:rotation="180"
+                android:alpha="0.5"
+                tools:ignore="contentDescription"/>
+        </FrameLayout>
+
+        <!-- Right Part (Symbolic) -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content">
+
+            <!--Background right -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/keyboard_height"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+                
+                <!-- Keys Column 1-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    style="?attr/buttonBarStyle"
+                    android:orientation="vertical">
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_bracket_open"/>
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_power"/>
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_square_root"/>
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_subtract"/>
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_add"/>
+                </LinearLayout>
+
+                <!-- Keys Column 2-->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    style="?attr/buttonBarStyle"
+                    android:orientation="vertical">
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_bracket_close"/>
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_factorial"/>
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_percentage"/>
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_divide"/>
+                    <Button
+                        style="?attr/buttonBarButtonStyle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/keyboard_text_size"
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black_text"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_height="@dimen/keyboard_row_height"
+                        android:text="@string/keyboard_button_multiply"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Top shadow -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shadow_width"
+        android:src="@drawable/horizontal_shadow"
+        android:rotation="180"
+        android:alpha="0.5"
+        tools:ignore="contentDescription"/>
+</FrameLayout>

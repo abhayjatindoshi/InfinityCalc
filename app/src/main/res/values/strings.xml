@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">InfinityCalc</string>
+    <string name="keyboard_button_1">1</string>
+    <string name="keyboard_button_2">2</string>
+    <string name="keyboard_button_3">3</string>
+    <string name="keyboard_button_4">4</string>
+    <string name="keyboard_button_5">5</string>
+    <string name="keyboard_button_6">6</string>
+    <string name="keyboard_button_7">7</string>
+    <string name="keyboard_button_8">8</string>
+    <string name="keyboard_button_9">9</string>
+    <string name="keyboard_button_dot">.</string>
+    <string name="keyboard_button_0">0</string>
+    <string name="keyboard_button_equal">=</string>
+    <string name="keyboard_button_delete">Delete key</string>
+    <string name="keyboard_button_bracket_open">(</string>
+    <string name="keyboard_button_bracket_close">)</string>
+    <string name="keyboard_button_power">^</string>
+    <string name="keyboard_button_square_root">√</string>
+    <string name="keyboard_button_subtract">-</string>
+    <string name="keyboard_button_add">+</string>
+    <string name="keyboard_button_factorial">!</string>
+    <string name="keyboard_button_percentage">%</string>
+    <string name="keyboard_button_divide">÷</string>
+    <string name="keyboard_button_multiply">×</string>
+    <string name="calculator_expression_text">Expression</string>
+    <string name="calculator_result_text">Result</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
