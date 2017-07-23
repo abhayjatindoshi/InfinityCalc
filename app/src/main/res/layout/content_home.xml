@@ -5,31 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.encryptorcode.abhay.infinitycalc.HomeActivity"
+    tools:context="com.encryptorcode.abhay.infinitycalc.activities.HomeActivity"
     tools:showIn="@layout/app_bar_home"
     android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/shadow_width"
             android:alpha="0.5"
+            android:rotation="180"
             android:src="@drawable/horizontal_shadow"
-            android:rotation="180"/>
+            tools:ignore="ContentDescription" />
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/expression_text"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:textSize="@dimen/calculator_expression_text_size"
-                android:hint="@string/calculator_expression_text"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:layout_margin="5dp"
+                android:gravity="end"
+                android:hint="@string/calculator_expression_text"
+                android:maxLines="1"
+                android:textColor="@color/black_text"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/calculator_expression_text_size" />
         </HorizontalScrollView>
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -39,17 +49,23 @@
             android:layout_height="@dimen/shadow_width"
             android:alpha="0.5"
             android:src="@drawable/horizontal_shadow"
-            android:rotation="180"/>
+            android:rotation="180"
+            tools:ignore="ContentDescription" />
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/result_text"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:textSize="@dimen/calculator_result_text_size"
-                android:hint="@string/calculator_result_text"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:layout_margin="5dp"
+                android:gravity="end"
+                android:hint="@string/calculator_result_text"
+                android:maxLines="1"
+                android:textColor="@color/black_text"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/calculator_expression_text_size" />
         </HorizontalScrollView>
     </FrameLayout>
     <include layout="@layout/default_keyboard"/>

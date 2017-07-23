@@ -23,6 +23,7 @@
     <string name="keyboard_button_percentage">%</string>
     <string name="keyboard_button_divide">÷</string>
     <string name="keyboard_button_multiply">×</string>
+    <string name="keyboard_button_all_clear">AC</string>
     <string name="calculator_expression_text">Expression</string>
     <string name="calculator_result_text">Result</string>
     <string name="title_activity_home">HomeActivity</string>
