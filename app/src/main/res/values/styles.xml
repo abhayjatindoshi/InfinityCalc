@@ -1,14 +1,109 @@
 <resources>
+    <attr name="colorPrimaryLight" format="reference"/>
+    <attr name="textLight" format="reference"/>
+    <attr name="textDark" format="reference"/>
+    <attr name="colorBackground" format="reference"/>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="textLight">@color/textLight</item>
+        <item name="textDark">@color/textDark</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+
+    <style name="BaseTheme.Blue">
+        <item name="colorPrimaryLight">@color/blueLight</item>
+        <item name="colorPrimary">@color/bluePrimary</item>
+        <item name="colorPrimaryDark">@color/blueDark</item>
+        <item name="colorBackground">@color/transparent</item>
+    </style>
+
+    <style name="BaseTheme.Dark">
+        <item name="colorPrimaryLight">@color/darkLight</item>
+        <item name="colorPrimary">@color/darkPrimary</item>
+        <item name="colorPrimaryDark">@color/darkDark</item>
+        <item name="textLight">@color/textLightInverse</item>
+        <item name="textDark">@color/textDarkInverse</item>
+        <item name="colorBackground">@color/darkDark</item>
+    </style>
+
+    <style name="BaseTheme.Red">
+        <item name="colorPrimaryLight">@color/redLight</item>
+        <item name="colorPrimary">@color/redPrimary</item>
+        <item name="colorPrimaryDark">@color/redDark</item>
+        <item name="colorBackground">@color/transparent</item>
+    </style>
+
+    <style name="BaseTheme.Green">
+        <item name="colorPrimaryLight">@color/greenLight</item>
+        <item name="colorPrimary">@color/greenPrimary</item>
+        <item name="colorPrimaryDark">@color/greenDark</item>
+    </style>
+
+    <style name="BaseTheme.Pink">
+        <item name="colorPrimaryLight">@color/pinkLight</item>
+        <item name="colorPrimary">@color/pinkPrimary</item>
+        <item name="colorPrimaryDark">@color/pinkDark</item>
+        <item name="colorBackground">@color/transparent</item>
+    </style>
+
+    <style name="BaseTheme.Orange">
+        <item name="colorPrimaryLight">@color/orangeLight</item>
+        <item name="colorPrimary">@color/orangePrimary</item>
+        <item name="colorPrimaryDark">@color/orangeDark</item>
+        <item name="colorBackground">@color/transparent</item>
+    </style>
+
+    <style name="BaseTheme.Yellow">
+        <item name="colorPrimaryLight">@color/yellowLight</item>
+        <item name="colorPrimary">@color/yellowPrimary</item>
+        <item name="colorPrimaryDark">@color/yellowDark</item>
+        <item name="colorBackground">@color/transparent</item>
+    </style>
+
+    <style name="BaseTheme.Purple">
+        <item name="colorPrimaryLight">@color/purpleLight</item>
+        <item name="colorPrimary">@color/purplePrimary</item>
+        <item name="colorPrimaryDark">@color/purpleDark</item>
+        <item name="colorBackground">@color/transparent</item>
+    </style>
+
+    <style name="BaseTheme.Blue.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseTheme.Dark.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseTheme.Red.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseTheme.Green.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseTheme.Pink.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseTheme.Orange.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseTheme.Yellow.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseTheme.Purple.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

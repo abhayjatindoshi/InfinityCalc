@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryLight">#adc6ff</color>
-    <color name="colorPrimary">#1a5fff</color>
-    <color name="colorPrimaryDark">#002270</color>
-    <color name="colorAccent">#FF4081</color>
 
-    <color name="white_text">#ddd</color>
-    <color name="black_text">#222</color>
+    <!-- Text Themes -->
+    <color name="textLight">#222</color>
+    <color name="textDark">#ddd</color>
+
+    <color name="textLightInverse">#ddd</color>
+    <color name="textDarkInverse">#222</color>
+
+    <!-- Color Themes -->
+    <color name="blueLight">#adc6ff</color>
+    <color name="bluePrimary">#1a5fff</color>
+    <color name="blueDark">#002270</color>
+
+    <color name="darkLight">#222222</color>
+    <color name="darkPrimary">#444444</color>
+    <color name="darkDark">#666666</color>
+
+    <color name="redLight">#ffcdd2</color>
+    <color name="redPrimary">#f44336</color>
+    <color name="redDark">#b71c1c</color>
+
+    <color name="greenLight">#C8E6C9</color>
+    <color name="greenPrimary">#4CAF50</color>
+    <color name="greenDark">#1B5E20</color>
+
+    <color name="pinkLight">#F8BBD0</color>
+    <color name="pinkPrimary">#E91E63</color>
+    <color name="pinkDark">#880E4F</color>
+
+    <color name="orangeLight">#FFE0B2</color>
+    <color name="orangePrimary">#FF9800</color>
+    <color name="orangeDark">#E65100</color>
+
+    <color name="yellowLight">#FFF9C4</color>
+    <color name="yellowPrimary">#ffd740</color>
+    <color name="yellowDark">#ffc107</color>
+
+    <color name="purpleLight">#D1C4E9</color>
+    <color name="purplePrimary">#673AB7</color>
+    <color name="purpleDark">#311B92</color>
+
+    <!-- Misc -->
+    <color name="transparent">#00ffffff</color>
+    <color name="white">#eee</color>
+    <color name="separator">#ccc</color>
+    <color name="shadow">#777</color>
+
 </resources>

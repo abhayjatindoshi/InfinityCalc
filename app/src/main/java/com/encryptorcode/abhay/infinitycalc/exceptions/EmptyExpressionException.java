@@ -1,23 +1,22 @@
 package com.encryptorcode.abhay.infinitycalc.exceptions;
 
 /**
- * Created by abhay-5228 on 15/07/17.
+ * Created by abhay-5228 on 05/08/17.
  */
 
-public class IllegalExpressionException extends Exception {
-
+public class EmptyExpressionException extends Exception {
     private String message;
     private int position;
 
-    public IllegalExpressionException(int position) {
+    public EmptyExpressionException(int position) {
         this("",position);
     }
 
-    public IllegalExpressionException(String message){
+    public EmptyExpressionException(String message){
         this(message,-1);
     }
 
-    public IllegalExpressionException(String message, int position) {
+    public EmptyExpressionException(String message, int position) {
         this.message = message;
         this.position = position;
     }

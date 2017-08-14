@@ -1,8 +1,10 @@
 package com.encryptorcode.abhay.infinitycalc.controllers;
 
-import com.encryptorcode.abhay.infinitycalc.models.Tag;
+import com.encryptorcode.abhay.infinitycalc.exceptions.EmptyExpressionException;
+import com.encryptorcode.abhay.infinitycalc.exceptions.LimitCrossedException;
 import com.encryptorcode.abhay.infinitycalc.models.TokenTag;
 
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
@@ -11,7 +13,7 @@ import java.util.Stack;
  */
 
 public class ExpressionEvaluator {
-    public static String evaluate(List<TokenTag> list){
+    public static String evaluate(List<TokenTag> list,int round) throws LimitCrossedException, EmptyExpressionException {
         Stack<String> numberStack = new Stack<>();
         Stack<String> unaryStack = new Stack<>();
         for (TokenTag tokenTag : list) {
@@ -22,7 +24,7 @@ public class ExpressionEvaluator {
                     else{
                         String number = tokenTag.getToken();
                         while(!unaryStack.empty()){
-                            number = leftUnaryOperation(number,unaryStack.pop());
+                            number = leftUnaryOperation(number,unaryStack.pop(),round);
                         }
                         numberStack.add(number);
                     }
@@ -33,24 +35,25 @@ public class ExpressionEvaluator {
                     break;
 
                 case RIGHT_UNARY:
-                    if(tokenTag.getToken().equals("%"))
-                        numberStack.add(rightUnaryOperation(numberStack.pop(),numberStack.peek(),tokenTag.getToken()));
-                    else
-                        numberStack.add(rightUnaryOperation(numberStack.pop(),null,tokenTag.getToken()));
+                    numberStack.add(rightUnaryOperation(numberStack.pop(),tokenTag.getToken(),round));
                     break;
 
                 case BINARY:
-                    numberStack.add(binaryOperation(numberStack.pop(),numberStack.pop(),tokenTag.getToken()));
+                    numberStack.add(binaryOperation(numberStack.pop(),numberStack.pop(),tokenTag.getToken(),round));
                     break;
             }
         }
-        return numberStack.pop();
+        try {
+            return numberStack.pop();
+        }catch (EmptyStackException e){
+            throw new EmptyExpressionException("The expression is empty");
+        }
     }
 
-    static String leftUnaryOperation(String number, String operation){
+    static String leftUnaryOperation(String number, String operation, int round){
         switch(operation){
             case ExpressionIdentifier.squareRoot:
-                return ExpressionOperations.squareRoot(number);
+                return ExpressionOperations.squareRoot(number,round);
             case ExpressionIdentifier.negate:
                 return ExpressionOperations.negate(number);
             default:
@@ -58,18 +61,18 @@ public class ExpressionEvaluator {
         }
     }
 
-    static String rightUnaryOperation(String number, String totalSum, String operation){
+    static String rightUnaryOperation(String number, String operation, int round) throws LimitCrossedException {
         switch (operation){
             case ExpressionIdentifier.factorial:
                 return ExpressionOperations.factorial(number);
             case ExpressionIdentifier.percentage:
-                return ExpressionOperations.percentage(totalSum,number);
+                return ExpressionOperations.percentage(number,round);
             default:
                 return null;
         }
     }
 
-    static String binaryOperation(String number2, String number1, String operation){
+    static String binaryOperation(String number2, String number1, String operation, int round) throws LimitCrossedException {
         switch(operation){
             case ExpressionIdentifier.add:
                 return ExpressionOperations.add(number1,number2);
@@ -78,11 +81,11 @@ public class ExpressionEvaluator {
             case ExpressionIdentifier.multiply:
                 return ExpressionOperations.multiply(number1,number2);
             case ExpressionIdentifier.divide:
-                return ExpressionOperations.divide(number1,number2);
+                return ExpressionOperations.divide(number1,number2,round);
             case ExpressionIdentifier.modulus:
                 return ExpressionOperations.modulus(number1,number2);
             case ExpressionIdentifier.power:
-                return ExpressionOperations.power(number1,Integer.valueOf(number2));
+                return ExpressionOperations.power(number1,number2);
             default:
                 return null;
         }
