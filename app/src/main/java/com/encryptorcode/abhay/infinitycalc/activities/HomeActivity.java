@@ -20,7 +20,9 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,7 +72,6 @@ public class HomeActivity extends NavigationBaseActivity
         expression = (TextView) findViewById(R.id.expression_text);
         result = (TextView) findViewById(R.id.result_text);
         infinityBlinkView = findViewById(R.id.infinity_blink_view);
-
 
         expression.addTextChangedListener(new TextWatcher() {
             @Override
@@ -139,7 +140,7 @@ public class HomeActivity extends NavigationBaseActivity
         } else if (id == R.id.nav_feedback) {
             rateApp();
         } else if (id == R.id.nav_share) {
-
+            shareApp();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

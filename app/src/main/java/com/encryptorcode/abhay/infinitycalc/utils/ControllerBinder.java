@@ -21,6 +21,19 @@ public class ControllerBinder {
         String[] tokens = ExpressionTokenizer.tokenize(expression);
         Tag[] tags = ExpressionTagger.tag(tokens);
         List<TokenTag> list = ExpressionPostfixer.postfix(TokenTag.asList(tokens,tags));
-        return ExpressionEvaluator.evaluate(list,round);
+        String result = ExpressionEvaluator.evaluate(list,round);
+        result = removeZeros(result);
+        return result;
+    }
+
+    private static String removeZeros(String number){
+        int index;
+        for(index = number.length()-1; index >= 0 ; index-- ){
+            if(number.charAt(index) == '0' || number.charAt(index) == '.') {
+            }
+            else
+                break;
+        }
+        return number.substring(0,index+1);
     }
 }

@@ -1,4 +1,11 @@
 <resources>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <attr name="colorPrimaryLight" format="reference"/>
     <attr name="textLight" format="reference"/>
     <attr name="textDark" format="reference"/>
@@ -19,11 +26,11 @@
     </style>
 
     <style name="BaseTheme.Dark">
-        <item name="colorPrimaryLight">@color/darkLight</item>
+        <item name="colorPrimaryLight">@color/darkDark</item>
         <item name="colorPrimary">@color/darkPrimary</item>
-        <item name="colorPrimaryDark">@color/darkDark</item>
+        <item name="colorPrimaryDark">@color/darkLight</item>
         <item name="textLight">@color/textLightInverse</item>
-        <item name="textDark">@color/textDarkInverse</item>
+        <item name="textDark">@color/textLightInverse</item>
         <item name="colorBackground">@color/darkDark</item>
     </style>
 
@@ -38,6 +45,7 @@
         <item name="colorPrimaryLight">@color/greenLight</item>
         <item name="colorPrimary">@color/greenPrimary</item>
         <item name="colorPrimaryDark">@color/greenDark</item>
+        <item name="colorBackground">@color/transparent</item>
     </style>
 
     <style name="BaseTheme.Pink">

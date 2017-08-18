@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?attr/colorBackground">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -25,22 +26,18 @@
                 android:src="@drawable/horizontal_shadow"
                 tools:ignore="ContentDescription" />
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/expression_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center"
-                    android:layout_margin="5dp"
-                    android:gravity="end"
-                    android:hint="@string/calculator_expression_text"
-                    android:maxLines="1"
-                    android:textColor="?attr/textLight"
-                    android:textIsSelectable="true"
-                    android:textSize="@dimen/calculator_expression_text_size" />
-            </HorizontalScrollView>
+            <TextView
+                android:id="@+id/expression_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:layout_margin="5dp"
+                android:hint="@string/calculator_expression_text"
+                android:gravity="end"
+                android:textColor="?attr/textLight"
+                android:textIsSelectable="true"
+                android:scrollbars="vertical"
+                android:textSize="@dimen/calculator_expression_text_size" />
         </FrameLayout>
 
         <FrameLayout
@@ -54,22 +51,18 @@
                 android:src="@drawable/horizontal_shadow"
                 android:rotation="180"
                 tools:ignore="ContentDescription" />
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/result_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center"
-                    android:layout_margin="5dp"
-                    android:gravity="end"
-                    android:hint="@string/calculator_result_text"
-                    android:maxLines="1"
-                    android:textColor="?attr/textLight"
-                    android:textIsSelectable="true"
-                    android:textSize="@dimen/calculator_expression_text_size" />
-            </HorizontalScrollView>
+            <TextView
+                android:id="@+id/result_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:layout_margin="5dp"
+                android:hint="@string/calculator_result_text"
+                android:gravity="end"
+                android:textColor="?attr/textLight"
+                android:textIsSelectable="true"
+                android:scrollbars="vertical"
+                android:textSize="@dimen/calculator_expression_text_size" />
         </FrameLayout>
         <include layout="@layout/default_keyboard"/>
     </LinearLayout>

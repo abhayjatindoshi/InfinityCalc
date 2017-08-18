@@ -6,12 +6,12 @@ import android.os.Bundle;
 
 import com.encryptorcode.abhay.infinitycalc.R;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         startActivity(new Intent(this,HomeActivity.class));
+        finish();
     }
 }
