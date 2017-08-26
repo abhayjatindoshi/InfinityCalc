@@ -13,6 +13,7 @@ public class ExpressionTagger {
     private static final String OPERATOR_NOT_IN_VALID_POSITION = "Operator is not in a valid position";
     private static final String TAG_VERIFICATION_FAILED = "Something is placed in an invalid position";
     private static final String INVALID_BRACKETS = "Please check the brackets";
+    private static final String NOTHING_TO_EVALUATE = "Single token. Nothing to evaluate";
 
     // Order -> number, left unary, right unary, binary, open bracket, close bracket
     private static final boolean[][] left={
@@ -52,6 +53,9 @@ public class ExpressionTagger {
     
     public static Tag[] tag(String[] tokens) throws IllegalExpressionException {
         Tag[] tags = identifyTokens(tokens);
+        if(tokens.length <= 1){
+            return tags;
+        }
         identifyOperators(tokens,tags);
         verifyTags(tags);
         verifyBrackets(tags);

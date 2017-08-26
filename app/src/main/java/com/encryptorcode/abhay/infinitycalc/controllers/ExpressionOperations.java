@@ -1,8 +1,10 @@
 package com.encryptorcode.abhay.infinitycalc.controllers;
 
+import com.encryptorcode.abhay.infinitycalc.exceptions.IllegalExpressionException;
 import com.encryptorcode.abhay.infinitycalc.exceptions.LimitCrossedException;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 
 /**
@@ -13,33 +15,28 @@ public class ExpressionOperations {
 
     private static final BigDecimal TWO = new BigDecimal("2");
     private static final BigDecimal HUNDRED = new BigDecimal("100");
-    private static final int DECIAMAL_PLACES = 2;
     private static final String EXPONENT_LIMIT_CROSSED_MESSAGE = "Limit for exponents is 5 digits.";
     private static final String NOT_DECIMAL_MESSAGE = "Decimal number not supported for exponent calculations";
     private static final String FACTORIAL_LIMIT_CROSSED_MESSAGE = "Limit for factorial is upto 12000";
 
     public static String add(String num1, String num2){
-        return new BigDecimal(num1).add(new BigDecimal(num2)).toString();
+        return new BigDecimal(num1).add(new BigDecimal(num2)).toPlainString();
     }
 
     public static String subtract(String num1, String num2){
-        return new BigDecimal(num1).subtract(new BigDecimal(num2)).toString();
+        return new BigDecimal(num1).subtract(new BigDecimal(num2)).toPlainString();
     }
 
     public static String multiply(String num1, String num2){
-        return new BigDecimal(num1).multiply(new BigDecimal(num2)).toString();
-    }
-
-    public static String divide(String num1, String num2){
-        return divide(num1, num2, DECIAMAL_PLACES);
+        return new BigDecimal(num1).multiply(new BigDecimal(num2)).toPlainString();
     }
 
     public static String divide(String num1, String num2, int decimalPlaces){
-        return new BigDecimal(num1).divide(new BigDecimal(num2), decimalPlaces, RoundingMode.HALF_UP).toString();
+        return new BigDecimal(num1).divide(new BigDecimal(num2), decimalPlaces, RoundingMode.HALF_UP).toPlainString();
     }
 
     public static String modulus(String num1, String num2){
-        return new BigDecimal(num1).remainder(new BigDecimal(num2)).toString();
+        return new BigDecimal(num1).remainder(new BigDecimal(num2)).toPlainString();
     }
 
     public static String negate(String num){
@@ -60,19 +57,16 @@ public class ExpressionOperations {
 
     //limit num2 upto 4 digits
     public static String power(String num1, int num2) throws LimitCrossedException {
+        if(num1.length() > 10000) throw new LimitCrossedException(EXPONENT_LIMIT_CROSSED_MESSAGE);
         if(num2/10000 > 0) throw new LimitCrossedException(EXPONENT_LIMIT_CROSSED_MESSAGE);
-        return new BigDecimal(num1).pow(num2).toString();
+        return new BigDecimal(num1).pow(num2).toPlainString();
     }
 
     //limit 12000
     public static String factorial(String num) throws LimitCrossedException {
         if(num.length() > 5 || Integer.parseInt(num)/12001 > 0) throw new LimitCrossedException(FACTORIAL_LIMIT_CROSSED_MESSAGE);
         BigDecimal decimal = new BigDecimal(num);
-        return fac(decimal,decimal).toString();
-    }
-
-    public static String squareRoot(String num){
-        return squareRoot(num,DECIAMAL_PLACES);
+        return fac(decimal,decimal).toPlainString();
     }
 
     public static String squareRoot(String num, int decimalPlaces) {
@@ -86,21 +80,13 @@ public class ExpressionOperations {
             x1 = x1.divide(TWO, decimalPlaces, BigDecimal.ROUND_HALF_UP);
 
         }
-        return x1.toString();
-    }
-
-    public static String percentage(String num){
-        return percentage(num,DECIAMAL_PLACES);
+        return x1.toPlainString();
     }
 
     public static String percentage(String num, int decimalPlaces){
         BigDecimal a = new BigDecimal(num);
-        return a.divide(HUNDRED,decimalPlaces,RoundingMode.HALF_UP).toString();
+        return a.divide(HUNDRED,decimalPlaces,RoundingMode.HALF_UP).toPlainString();
     }
-
-//    public static void main(String[] args) {
-//        System.out.println(percentage("1000","300",0));
-//    }
 
     private static BigDecimal fac(BigDecimal n, BigDecimal acc) {
         if (n.equals(BigDecimal.ONE)) {
@@ -108,6 +94,13 @@ public class ExpressionOperations {
         }
         BigDecimal lessOne = n.subtract(BigDecimal.ONE);
         return fac(lessOne, acc.multiply(lessOne));
+    }
+
+    public static String toBaseCode(String num, int base) throws IllegalExpressionException {
+        if(num.contains(".")){
+            throw new IllegalExpressionException("cannot convert fractional number to base coded");
+        }
+        return new BigInteger(num).toString(base);
     }
 
 }

@@ -53,7 +53,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:layout_height="match_parent"
                         android:text="@string/keyboard_button_all_clear"/>
-                    <Button
+                    <ImageButton
                         android:onClick="onClick"
                         android:id="@+id/keyboard_button_delete"
                         android:textColor="?attr/textLight"
@@ -61,6 +61,7 @@
                         android:textSize="18sp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:src="@drawable/ic_backspace_black_24dp"
                         android:background="?attr/selectableItemBackground"
                         android:layout_height="match_parent"
                         android:textStyle="bold"

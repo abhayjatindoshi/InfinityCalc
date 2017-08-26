@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:text="Round to "/>
         <ImageView
-            android:id="@+id/rount_to_close"
+            android:id="@+id/round_to_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
@@ -26,11 +26,23 @@
             android:paddingEnd="5dp"
             android:src="@drawable/ic_close_black_24dp"/>
     </FrameLayout>
-    <NumberPicker
-        android:id="@+id/round_to_picker"
-        android:layout_gravity="center"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="?attr/textLight"
+        android:gravity="center"
+        android:text="Enter the number of decimals to round to"/>
+
+    <EditText
+        android:id="@+id/round_to_picker"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ellipsize="start"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:maxLength="5"/>
     <TextView
         android:id="@+id/round_to_select_button"
         android:layout_width="wrap_content"

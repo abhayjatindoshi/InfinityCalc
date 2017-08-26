@@ -1,12 +1,16 @@
 package com.encryptorcode.abhay.infinitycalc.activities;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -19,17 +23,19 @@ import com.encryptorcode.abhay.infinitycalc.models.Theme;
 
 public class SettingsActivity extends BaseActivity implements View.OnClickListener{
 
+    InputMethodManager imm;
     SharedPreferences sp;
-    SharedPreferences.Editor edit;
 
-    View settingTheme,selectThemeButton;
+    SharedPreferences.Editor edit;
+    View settingTheme;
     Dialog themeSelectorDialog;
     GridLayout colorGrid;
-    ImageView colorCircle;
 
+    ImageView colorCircle;
     View settingDecimal,selectRoundButton;
     Dialog roundToDialog;
-    NumberPicker picker;
+    EditText picker;
+
     TextView roundNumber;
 
     @Override
@@ -37,6 +43,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         sp = getSharedPreferences("app",MODE_PRIVATE);
         edit = getSharedPreferences("app",MODE_PRIVATE).edit();
 
@@ -45,14 +52,13 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         themeSelectorDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         themeSelectorDialog.setContentView(R.layout.theme_selector_dialog);
         colorGrid = (GridLayout) themeSelectorDialog.findViewById(R.id.color_selector_grid);
-        selectThemeButton = themeSelectorDialog.findViewById(R.id.theme_selector_select_button);
         colorCircle = (ImageView) findViewById(R.id.setting_primary_color);
 
         settingDecimal = findViewById(R.id.setting_decimal);
         roundToDialog = new Dialog(this);
         roundToDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         roundToDialog.setContentView(R.layout.rount_to_dialog);
-        picker = (NumberPicker) roundToDialog.findViewById(R.id.round_to_picker);
+        picker = (EditText) roundToDialog.findViewById(R.id.round_to_picker);
         roundNumber = (TextView) findViewById(R.id.round_number);
         selectRoundButton = roundToDialog.findViewById(R.id.round_to_select_button);
 
@@ -83,42 +89,34 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        selectThemeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SettingsActivity.this,HomeActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-                startActivity(new Intent(SettingsActivity.this,SettingsActivity.class));
-            }
-        });
-
         settingDecimal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 roundToDialog.show();
+                picker.requestFocus();
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             }
         });
 
-        roundToDialog.findViewById(R.id.rount_to_close).setOnClickListener(new View.OnClickListener() {
+        roundToDialog.findViewById(R.id.round_to_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 roundToDialog.dismiss();
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             }
         });
 
         int round = sp.getInt("round",2);
         roundNumber.setText(String.valueOf(round));
-        picker.setMinValue(0);
-        picker.setMaxValue(99999);
-        picker.setValue(round);
+        picker.setText(String.valueOf(round));
         selectRoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                roundNumber.setText(String.valueOf(picker.getValue()));
-                edit.putInt("round",picker.getValue());
+                roundNumber.setText(String.valueOf(picker.getText()));
+                edit.putInt("round",Integer.parseInt(picker.getText().toString()));
                 edit.apply();
                 roundToDialog.dismiss();
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             }
         });
     }
@@ -133,5 +131,9 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         layout.getChildAt(1).setVisibility(View.VISIBLE);
         edit.putInt("theme",Integer.parseInt(String.valueOf(layout.getTag())));
         edit.apply();
+        Intent i = new Intent(SettingsActivity.this,HomeActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        startActivity(new Intent(SettingsActivity.this,SettingsActivity.class));
     }
 }

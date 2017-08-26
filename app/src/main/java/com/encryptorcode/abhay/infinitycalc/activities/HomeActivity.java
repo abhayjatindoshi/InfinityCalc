@@ -1,5 +1,6 @@
 package com.encryptorcode.abhay.infinitycalc.activities;
 
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.encryptorcode.abhay.infinitycalc.R;
+import com.encryptorcode.abhay.infinitycalc.controllers.ExpressionOperations;
 import com.encryptorcode.abhay.infinitycalc.utils.ControllerBinder;
 import com.encryptorcode.abhay.infinitycalc.exceptions.EmptyExpressionException;
 import com.encryptorcode.abhay.infinitycalc.exceptions.IllegalExpressionException;
@@ -37,9 +40,10 @@ import java.util.EmptyStackException;
 public class HomeActivity extends NavigationBaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    TextView expression,result;
+    TextView expression,result,decimal,binary,octal,hexadecimal;
     View infinityBlinkView;
     int round;
+    Dialog baseCodeDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,20 @@ public class HomeActivity extends NavigationBaseActivity
         expression = (TextView) findViewById(R.id.expression_text);
         result = (TextView) findViewById(R.id.result_text);
         infinityBlinkView = findViewById(R.id.infinity_blink_view);
+
+        baseCodeDialog = new Dialog(this);
+        baseCodeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        baseCodeDialog.setContentView(R.layout.base_code_dialog);
+        decimal = (TextView) baseCodeDialog.findViewById(R.id.base_decimal);
+        binary = (TextView) baseCodeDialog.findViewById(R.id.base_binary);
+        octal = (TextView) baseCodeDialog.findViewById(R.id.base_octal);
+        hexadecimal = (TextView) baseCodeDialog.findViewById(R.id.base_hexadecimal);
+        baseCodeDialog.findViewById(R.id.base_code_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                baseCodeDialog.dismiss();
+            }
+        });
 
         expression.addTextChangedListener(new TextWatcher() {
             @Override
@@ -176,6 +194,20 @@ public class HomeActivity extends NavigationBaseActivity
                 break;
 
             case R.id.keyboard_button_dec:
+                try{
+                    baseCodeDialog.findViewById(R.id.base_code_values).setVisibility(View.VISIBLE);
+                    baseCodeDialog.findViewById(R.id.base_code_error).setVisibility(View.GONE);
+                    binary.setText(ExpressionOperations.toBaseCode(result.getText().toString(),2));
+                    octal.setText(ExpressionOperations.toBaseCode(result.getText().toString(),8));
+                    hexadecimal.setText(ExpressionOperations.toBaseCode(result.getText().toString(),16));
+                    decimal.setText(result.getText());
+                } catch (IllegalExpressionException e) {
+                    baseCodeDialog.findViewById(R.id.base_code_values).setVisibility(View.GONE);
+                    baseCodeDialog.findViewById(R.id.base_code_error).setVisibility(View.VISIBLE);
+                } catch (NumberFormatException e){
+                    break;
+                }
+                baseCodeDialog.show();
                 break;
 
             case R.id.keyboard_button_all_clear:
@@ -205,9 +237,7 @@ public class HomeActivity extends NavigationBaseActivity
         try {
             result.setText(ControllerBinder.eval(expression.getText().toString(),round));
         } catch (ArithmeticException e) {
-            if(isEqualPressed) {
-                infinityBlinkAnimation();
-            }
+            infinityBlinkAnimation();
         } catch (IllegalExpressionException | EmptyExpressionException e){
             if(isEqualPressed){
                 result.setText("ERROR");

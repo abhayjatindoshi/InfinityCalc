@@ -1,6 +1,7 @@
 package com.encryptorcode.abhay.infinitycalc.utils;
 
 import com.encryptorcode.abhay.infinitycalc.controllers.ExpressionEvaluator;
+import com.encryptorcode.abhay.infinitycalc.controllers.ExpressionOperations;
 import com.encryptorcode.abhay.infinitycalc.controllers.ExpressionPostfixer;
 import com.encryptorcode.abhay.infinitycalc.controllers.ExpressionTagger;
 import com.encryptorcode.abhay.infinitycalc.controllers.ExpressionTokenizer;
@@ -10,7 +11,9 @@ import com.encryptorcode.abhay.infinitycalc.exceptions.LimitCrossedException;
 import com.encryptorcode.abhay.infinitycalc.models.Tag;
 import com.encryptorcode.abhay.infinitycalc.models.TokenTag;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by abhay-5228 on 23/07/17.
@@ -27,13 +30,18 @@ public class ControllerBinder {
     }
 
     private static String removeZeros(String number){
-        int index;
-        for(index = number.length()-1; index >= 0 ; index-- ){
-            if(number.charAt(index) == '0' || number.charAt(index) == '.') {
+        if(number.contains(".")) {
+            int index;
+            for (index = number.length() - 1; index >= 0; index--) {
+                if (number.charAt(index) == '0' || number.charAt(index) == '.') {
+                    continue;
+                } else {
+                    break;
+                }
             }
-            else
-                break;
+            return number.substring(0, index + 1);
+        } else {
+            return number;
         }
-        return number.substring(0,index+1);
     }
 }
