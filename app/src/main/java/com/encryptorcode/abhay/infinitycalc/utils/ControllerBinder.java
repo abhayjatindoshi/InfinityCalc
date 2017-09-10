@@ -33,9 +33,10 @@ public class ControllerBinder {
         if(number.contains(".")) {
             int index;
             for (index = number.length() - 1; index >= 0; index--) {
-                if (number.charAt(index) == '0' || number.charAt(index) == '.') {
-                    continue;
-                } else {
+                if(number.charAt(index) == '.'){
+                    index--;
+                    break;
+                } else if (number.charAt(index) != '0') {
                     break;
                 }
             }
