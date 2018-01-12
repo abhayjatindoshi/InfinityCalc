@@ -15,9 +15,10 @@ public class ExpressionOperations {
 
     private static final BigDecimal TWO = new BigDecimal("2");
     private static final BigDecimal HUNDRED = new BigDecimal("100");
-    private static final String EXPONENT_LIMIT_CROSSED_MESSAGE = "Limit for exponents is 5 digits.";
+    private static final String EXPONENT_LIMIT_CROSSED_MESSAGE = "Limit for exponents is 3 digits.";
     private static final String NOT_DECIMAL_MESSAGE = "Decimal number not supported for exponent calculations";
-    private static final String FACTORIAL_LIMIT_CROSSED_MESSAGE = "Limit for factorial is upto 12000";
+    private static final String FACTORIAL_LIMIT_CROSSED_MESSAGE = "Limit for factorial is upto 1000";
+    private static Boolean infinityMode = false;
 
     public static String add(String num1, String num2){
         return new BigDecimal(num1).add(new BigDecimal(num2)).toPlainString();
@@ -55,16 +56,22 @@ public class ExpressionOperations {
         }
     }
 
-    //limit num2 upto 4 digits
+    //limit num2 upto 3 digits
     public static String power(String num1, int num2) throws LimitCrossedException {
-        if(num1.length() > 10000) throw new LimitCrossedException(EXPONENT_LIMIT_CROSSED_MESSAGE);
-        if(num2/10000 > 0) throw new LimitCrossedException(EXPONENT_LIMIT_CROSSED_MESSAGE);
+        if(!infinityMode) {
+            if (num1.length() > 999)
+                throw new LimitCrossedException(EXPONENT_LIMIT_CROSSED_MESSAGE);
+            if (num2 > 1000) throw new LimitCrossedException(EXPONENT_LIMIT_CROSSED_MESSAGE);
+        }
         return new BigDecimal(num1).pow(num2).toPlainString();
     }
 
-    //limit 12000
+    //limit 1000
     public static String factorial(String num) throws LimitCrossedException {
-        if(num.length() > 5 || Integer.parseInt(num)/12001 > 0) throw new LimitCrossedException(FACTORIAL_LIMIT_CROSSED_MESSAGE);
+        if(!infinityMode) {
+            if (num.length() > 5 || Integer.parseInt(num) / 12001 > 0)
+                throw new LimitCrossedException(FACTORIAL_LIMIT_CROSSED_MESSAGE);
+        }
         BigDecimal decimal = new BigDecimal(num);
         return fac(decimal,decimal).toPlainString();
     }
@@ -101,6 +108,10 @@ public class ExpressionOperations {
             throw new IllegalExpressionException("cannot convert fractional number to base coded");
         }
         return new BigInteger(num).toString(base);
+    }
+
+    public static void setInfinityMode(Boolean infinityMode){
+        ExpressionOperations.infinityMode = infinityMode;
     }
 
 }

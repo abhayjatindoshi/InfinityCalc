@@ -76,6 +76,48 @@
             android:rotation="180"
             android:alpha="0.3"/>
     </FrameLayout>
+    <FrameLayout
+        android:id="@+id/setting_infinity_mode"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_bar_height"
+        android:background="?attr/selectableItemBackground">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/settings_shadow_height">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="?attr/textLight"
+                android:textSize="@dimen/settings_text_size"
+                android:text="Infinity Mode"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/infinity_mode_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="15dp" />
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_shadow_height"
+            android:layout_gravity="bottom"
+            android:src="@drawable/horizontal_shadow"
+            android:rotation="180"
+            android:alpha="0.3"/>
+    </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textAlignment="center"
+        android:textColor="?attr/textLight"
+        android:text=" Note: In infinity mode you have to press = to start calculation. Calculations do not happen automatically"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"

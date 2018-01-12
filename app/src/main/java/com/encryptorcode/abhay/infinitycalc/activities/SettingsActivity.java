@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
@@ -37,6 +39,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     EditText picker;
 
     TextView roundNumber;
+    SwitchCompat infinityModeSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         picker = (EditText) roundToDialog.findViewById(R.id.round_to_picker);
         roundNumber = (TextView) findViewById(R.id.round_number);
         selectRoundButton = roundToDialog.findViewById(R.id.round_to_select_button);
+
+        infinityModeSwitch = (SwitchCompat) findViewById(R.id.infinity_mode_switch);
 
         for (int i = 0; i < colorGrid.getChildCount(); i++) {
             FrameLayout layout = (FrameLayout) colorGrid.getChildAt(i);
@@ -117,6 +122,15 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 edit.apply();
                 roundToDialog.dismiss();
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            }
+        });
+
+        infinityModeSwitch.setChecked(sp.getBoolean("infinityMode",false));
+        infinityModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                edit.putBoolean("infinityMode",isChecked);
+                edit.apply();
             }
         });
     }

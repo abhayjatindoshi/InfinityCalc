@@ -1,15 +1,21 @@
 package com.encryptorcode.abhay.infinitycalc.activities;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -44,6 +50,9 @@ public class HomeActivity extends NavigationBaseActivity
     View infinityBlinkView;
     int round;
     Dialog baseCodeDialog;
+    Boolean infinityMode;
+    ProcessEval processEval;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +60,6 @@ public class HomeActivity extends NavigationBaseActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -120,27 +120,6 @@ public class HomeActivity extends NavigationBaseActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.home, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -229,25 +208,38 @@ public class HomeActivity extends NavigationBaseActivity
     }
 
     void evaluate(boolean isEqualPressed){
-        if(expression.getText().toString().equals("")){
-            result.setText("");
-            return;
-        }
-        round = getSharedPreferences("app",MODE_PRIVATE).getInt("round",2);
-        try {
-            result.setText(ControllerBinder.eval(expression.getText().toString(),round));
-        } catch (ArithmeticException e) {
-            infinityBlinkAnimation();
-        } catch (IllegalExpressionException | EmptyExpressionException e){
-            if(isEqualPressed){
-                result.setText("ERROR");
+        infinityMode = getSharedPreferences("app",MODE_PRIVATE).getBoolean("infinityMode",false);
+        if(infinityMode){
+            if(isEqualPressed) {
+                if (processEval != null) {
+                    processEval.cancel(true);
+                }
+                processEval = new ProcessEval(isEqualPressed);
+                processEval.execute();
             }
-        } catch (LimitCrossedException e) {
-            Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
-        } catch (EmptyStackException e) {
-            Toast.makeText(this,"Cannot have first element as %",Toast.LENGTH_SHORT).show();
+        } else {
+            if(expression.getText().toString().equals("")){
+                result.setText("");
+                return;
+            }
+            round = getSharedPreferences("app",MODE_PRIVATE).getInt("round",2);
+            try {
+                result.setText(ControllerBinder.eval(expression.getText().toString(),round,infinityMode));
+                if(isEqualPressed){
+                    expression.setText(result.getText());
+                }
+            } catch (ArithmeticException e) {
+                infinityBlinkAnimation();
+            } catch (IllegalExpressionException | EmptyExpressionException e){
+                if(isEqualPressed){
+                    result.setText("ERROR");
+                }
+            } catch (LimitCrossedException e) {
+                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            } catch (EmptyStackException e) {
+                Toast.makeText(this,"Cannot have first element as %",Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
 
     void infinityBlinkAnimation(){
@@ -314,4 +306,69 @@ public class HomeActivity extends NavigationBaseActivity
         startActivity(Intent.createChooser(sendIntent, "Share app with "));
     }
 
+    class ProcessEval extends AsyncTask<Void,Void,Void>{
+
+
+        private boolean isEqualPressed;
+        private Exception e;
+        private String resultText;
+
+        public ProcessEval(boolean isEqualPressed) {
+            super();
+            this.isEqualPressed = isEqualPressed;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.e("TAG","Pre execute");
+            progressDialog = new ProgressDialog(HomeActivity.this);
+            progressDialog.setMessage("Calculating");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.e("TAG","background");
+            if(expression.getText().toString().equals("")){
+                resultText = "";
+                return null;
+            }
+            round = getSharedPreferences("app",MODE_PRIVATE).getInt("round",2);
+            try {
+                resultText = ControllerBinder.eval(expression.getText().toString(),round,infinityMode);
+            } catch (Exception e) {
+                this.e = e;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Log.e("TAG","Post execute");
+            progressDialog.hide();
+            if(resultText != null){
+                result.setText(resultText);
+            }
+            if(e != null){
+                if(e instanceof ArithmeticException){
+                    infinityBlinkAnimation();
+                } else if(e instanceof IllegalExpressionException || e instanceof EmptyExpressionException){
+                    if(isEqualPressed){
+                        result.setText("ERROR");
+                    }
+                } else if(e instanceof LimitCrossedException){
+                    Toast.makeText(HomeActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                } else if(e instanceof EmptyStackException){
+                    Toast.makeText(HomeActivity.this,"Cannot have first element as %",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+    }
+
 }
+
+

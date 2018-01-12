@@ -20,7 +20,9 @@ import java.util.Scanner;
  */
 
 public class ControllerBinder {
-    public static String eval(String expression, int round) throws IllegalExpressionException, LimitCrossedException, EmptyExpressionException {
+
+    public static String eval(String expression, int round, boolean infinityMode) throws IllegalExpressionException, LimitCrossedException, EmptyExpressionException {
+        ExpressionOperations.setInfinityMode(infinityMode);
         String[] tokens = ExpressionTokenizer.tokenize(expression);
         Tag[] tags = ExpressionTagger.tag(tokens);
         List<TokenTag> list = ExpressionPostfixer.postfix(TokenTag.asList(tokens,tags));
