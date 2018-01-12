@@ -11,9 +11,7 @@ import com.encryptorcode.abhay.infinitycalc.exceptions.LimitCrossedException;
 import com.encryptorcode.abhay.infinitycalc.models.Tag;
 import com.encryptorcode.abhay.infinitycalc.models.TokenTag;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by abhay-5228 on 23/07/17.

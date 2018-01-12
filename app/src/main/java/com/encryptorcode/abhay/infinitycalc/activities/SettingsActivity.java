@@ -8,20 +8,15 @@ import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.encryptorcode.abhay.infinitycalc.R;
-import com.encryptorcode.abhay.infinitycalc.models.Theme;
 
 public class SettingsActivity extends BaseActivity implements View.OnClickListener{
 
