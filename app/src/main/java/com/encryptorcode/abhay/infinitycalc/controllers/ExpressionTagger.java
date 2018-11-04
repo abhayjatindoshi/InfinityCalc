@@ -134,9 +134,9 @@ public class ExpressionTagger {
     }
 
     private static Tag getOperatorTag(Tag left, Tag right, String token) throws IllegalExpressionException {
+        if(ExpressionIdentifier.isRightUnary(token) && verify(left,Tag.RIGHT_UNARY,right)) return Tag.RIGHT_UNARY;
         if(ExpressionIdentifier.isBinary(token) && verify(left,Tag.BINARY,right)) return Tag.BINARY;
         if(ExpressionIdentifier.isLeftUnary(token) && verify(left,Tag.LEFT_UNARY,right)) return Tag.LEFT_UNARY;
-        if(ExpressionIdentifier.isRightUnary(token) && verify(left,Tag.RIGHT_UNARY,right)) return Tag.RIGHT_UNARY;
         throw new IllegalExpressionException(OPERATOR_NOT_IN_VALID_POSITION);
     }
 

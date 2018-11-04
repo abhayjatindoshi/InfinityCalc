@@ -26,7 +26,7 @@
                 android:src="@drawable/horizontal_shadow"
                 tools:ignore="ContentDescription" />
 
-            <TextView
+            <EditText
                 android:id="@+id/expression_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,6 +37,7 @@
                 android:textColor="?attr/textLight"
                 android:textIsSelectable="true"
                 android:scrollbars="vertical"
+                android:background="@android:color/transparent"
                 android:textSize="@dimen/calculator_expression_text_size" />
         </FrameLayout>
 

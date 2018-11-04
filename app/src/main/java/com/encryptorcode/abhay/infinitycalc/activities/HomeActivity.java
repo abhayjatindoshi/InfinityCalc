@@ -23,6 +23,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +35,15 @@ import com.encryptorcode.abhay.infinitycalc.exceptions.IllegalExpressionExceptio
 import com.encryptorcode.abhay.infinitycalc.exceptions.LimitCrossedException;
 import com.encryptorcode.abhay.infinitycalc.utils.ControllerBinder;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.EmptyStackException;
 
 public class HomeActivity extends NavigationBaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    TextView expression,result,decimal,binary,octal,hexadecimal;
+    TextView result,decimal,binary,octal,hexadecimal;
+    EditText expression;
     View infinityBlinkView;
     int round;
     Dialog baseCodeDialog;
@@ -66,7 +70,7 @@ public class HomeActivity extends NavigationBaseActivity
         LinearLayout heaverViewBackground = (LinearLayout) headerView.findViewById(R.id.nav_header_background);
         heaverViewBackground.setBackgroundColor(colorPrimary);
 
-        expression = (TextView) findViewById(R.id.expression_text);
+        expression = (EditText) findViewById(R.id.expression_text);
         result = (TextView) findViewById(R.id.result_text);
         infinityBlinkView = findViewById(R.id.infinity_blink_view);
 
@@ -84,6 +88,17 @@ public class HomeActivity extends NavigationBaseActivity
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            expression.setShowSoftInputOnFocus(false);
+        } else {
+            try {
+                Method method = EditText.class.getMethod("setShowSoftInputOnFocus", boolean.class);
+                method.setAccessible(true);
+                method.invoke(expression,false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         expression.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -162,7 +177,7 @@ public class HomeActivity extends NavigationBaseActivity
             case R.id.keyboard_button_divide:
             case R.id.keyboard_button_add:
             case R.id.keyboard_button_multiply:
-                expression.append(((Button)v).getText());
+                setUpdatedText(v);
                 break;
 
             case R.id.keyboard_button_dec:
@@ -188,9 +203,10 @@ public class HomeActivity extends NavigationBaseActivity
                 break;
 
             case R.id.keyboard_button_delete:
-                String expressionText = expression.getText().toString();
-                if(expressionText.length() > 0)
-                    expression.setText(expressionText.substring(0,expressionText.length()-1));
+//                String expressionText = expression.getText().toString();
+//                if(expressionText.length() > 0)
+//                    expression.setText(expressionText.substring(0,expressionText.length()-1));
+                setUpdatedText(v);
                 break;
 
             case R.id.keyboard_button_equal:
@@ -359,6 +375,27 @@ public class HomeActivity extends NavigationBaseActivity
                 }
             }
 
+        }
+    }
+
+    private void setUpdatedText(View button){
+        int selectionStart,selectionEnd;
+        if(expression.hasFocus()) {
+            selectionStart = expression.getSelectionStart();
+            selectionEnd = expression.getSelectionEnd();
+        } else {
+            selectionStart = expression.getText().length();
+            selectionEnd = expression.getText().length();
+        }
+        if(button.getId() == R.id.keyboard_button_delete){
+            if(selectionStart == selectionEnd){
+                expression.getText().replace(selectionStart-1,selectionEnd,"");
+            } else {
+                expression.getText().replace(selectionStart,selectionEnd,"");
+            }
+        } else {
+            CharSequence text = ((Button) button).getText();
+            expression.getText().replace(selectionStart, selectionEnd, text);
         }
     }
 

@@ -98,6 +98,8 @@ public class ExpressionOperations {
     private static BigDecimal fac(BigDecimal n, BigDecimal acc) {
         if (n.equals(BigDecimal.ONE)) {
             return acc;
+        } else if (n.equals(BigDecimal.ZERO)){
+            return BigDecimal.ONE;
         }
         BigDecimal lessOne = n.subtract(BigDecimal.ONE);
         return fac(lessOne, acc.multiply(lessOne));
