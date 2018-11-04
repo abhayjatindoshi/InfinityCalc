@@ -48,7 +48,7 @@ public class ExpressionTokenizer {
                 if (i+1 >= l1Tokens.size() || !ExpressionIdentifier.isNumber(l1Tokens.get(i + 1)))
                     throw new IllegalExpressionException(NO_NUMBER_AFTER_DECIMAL_POINT, i);
                 String token = l1Tokens.get(i)+l1Tokens.get(i+1);
-                if (ExpressionIdentifier.isNumber(tokens.get(tokens.size() - 1))){
+                if (i > 0 && ExpressionIdentifier.isNumber(tokens.get(tokens.size() - 1))){
                     token = tokens.get(tokens.size()-1)+token;
                     tokens.remove(tokens.size()-1);
                 }

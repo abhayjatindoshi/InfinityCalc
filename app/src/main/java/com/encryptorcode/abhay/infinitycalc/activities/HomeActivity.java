@@ -388,7 +388,7 @@ public class HomeActivity extends NavigationBaseActivity
             selectionEnd = expression.getText().length();
         }
         if(button.getId() == R.id.keyboard_button_delete){
-            if(selectionStart == selectionEnd){
+            if(selectionStart == selectionEnd && selectionStart != 0){
                 expression.getText().replace(selectionStart-1,selectionEnd,"");
             } else {
                 expression.getText().replace(selectionStart,selectionEnd,"");
