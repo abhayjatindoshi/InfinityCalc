@@ -26,5 +26,4 @@
         <activity android:name=".activities.AboutActivity"
             android:label="@string/activity_about_label"/>
     </application>
-
 </manifest>

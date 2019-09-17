@@ -18,6 +18,8 @@ public class ExpressionOperations {
     private static final String EXPONENT_LIMIT_CROSSED_MESSAGE = "Limit for exponents is 3 digits.";
     private static final String NOT_DECIMAL_MESSAGE = "Decimal number not supported for exponent calculations";
     private static final String FACTORIAL_LIMIT_CROSSED_MESSAGE = "Limit for factorial is upto 1000";
+    private static final String NEGATIVE_FACTORIALS_MESSAGE = "Factorials for negative numbers is not possible";
+    private static final String NEGATIVE_SQUARE_ROOTS_MESSAGE = "Cannot take square roots for negative number";
     private static Boolean infinityMode = false;
 
     public static String add(String num1, String num2){
@@ -68,9 +70,13 @@ public class ExpressionOperations {
 
     //limit 1000
     public static String factorial(String num) throws LimitCrossedException {
+        Integer number = Integer.parseInt(num);
         if(!infinityMode) {
-            if (num.length() > 5 || Integer.parseInt(num) / 12001 > 0)
+            if (num.length() > 5 || number / 12001 > 0)
                 throw new LimitCrossedException(FACTORIAL_LIMIT_CROSSED_MESSAGE);
+        }
+        if(number < 0){
+            throw new ArithmeticException(NEGATIVE_FACTORIALS_MESSAGE);
         }
         BigDecimal decimal = new BigDecimal(num);
         return fac(decimal,decimal).toPlainString();
@@ -78,6 +84,11 @@ public class ExpressionOperations {
 
     public static String squareRoot(String num, int decimalPlaces) {
         BigDecimal A = new BigDecimal(num);
+
+        if(A.doubleValue() < 0){
+            throw new ArithmeticException(NEGATIVE_SQUARE_ROOTS_MESSAGE);
+        }
+
         BigDecimal x0 = new BigDecimal("0");
         BigDecimal x1 = new BigDecimal(Math.sqrt(A.doubleValue()));
         while (!x0.equals(x1)) {

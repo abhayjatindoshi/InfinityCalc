@@ -58,22 +58,7 @@ public class ExpressionTokenizer {
                 tokens.add(l1Tokens.get(i));
             }
         }
-        return tokens.toArray(new String[tokens.size()]);
+        return tokens.toArray(new String[0]);
     }
-
-
-
-//    public static void main(String[] args) throws IllegalExpressionException {
-////        String expression = "2131.23+1.234-0+(12)+34.1-1435÷214";
-////        String expression = "1+2-3--√4+5+√5!)";
-//        String expression = "(5)";
-//        ExpressionTokenizer tokenizer = new ExpressionTokenizer(expression);
-//        List<String> tokens = tokenizer.tokens;
-//        Tag[] tags = tokenizer.tags;
-//        for (int i = 0; i < tokens.size(); i++) {
-//            System.out.println(tags[i]+" -> "+tokens.get(i));
-//        }
-//    }
-
 
 }

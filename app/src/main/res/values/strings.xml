@@ -36,4 +36,5 @@
     <string name="activity_about_label">About me</string>
 
     <string name="share_text">Hey! I can now make large calculation using Infinity Calc. Download it in your phone too http://bit.ly/2i68ZkX</string>
+    <string name="infinity">∞</string>
 </resources>

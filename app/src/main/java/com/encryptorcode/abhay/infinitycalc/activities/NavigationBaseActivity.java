@@ -3,12 +3,13 @@ package com.encryptorcode.abhay.infinitycalc.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 
 import com.encryptorcode.abhay.infinitycalc.R;
 import com.encryptorcode.abhay.infinitycalc.models.Theme;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by abhay-5228 on 12/08/17.

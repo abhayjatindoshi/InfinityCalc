@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.encryptorcode.abhay.infinitycalc.R;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 public class SettingsActivity extends BaseActivity implements View.OnClickListener{
 

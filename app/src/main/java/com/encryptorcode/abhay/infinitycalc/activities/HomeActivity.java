@@ -8,12 +8,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,6 +21,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.encryptorcode.abhay.infinitycalc.R;
 import com.encryptorcode.abhay.infinitycalc.controllers.ExpressionOperations;
@@ -34,10 +29,15 @@ import com.encryptorcode.abhay.infinitycalc.exceptions.EmptyExpressionException;
 import com.encryptorcode.abhay.infinitycalc.exceptions.IllegalExpressionException;
 import com.encryptorcode.abhay.infinitycalc.exceptions.LimitCrossedException;
 import com.encryptorcode.abhay.infinitycalc.utils.ControllerBinder;
+import com.google.android.material.navigation.NavigationView;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.EmptyStackException;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class HomeActivity extends NavigationBaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -50,37 +50,39 @@ public class HomeActivity extends NavigationBaseActivity
     Boolean infinityMode;
     ProcessEval processEval;
     ProgressDialog progressDialog;
+    View infinityOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
-        LinearLayout heaverViewBackground = (LinearLayout) headerView.findViewById(R.id.nav_header_background);
+        LinearLayout heaverViewBackground = headerView.findViewById(R.id.nav_header_background);
         heaverViewBackground.setBackgroundColor(colorPrimary);
 
-        expression = (EditText) findViewById(R.id.expression_text);
-        result = (TextView) findViewById(R.id.result_text);
+        expression = findViewById(R.id.expression_text);
+        result = findViewById(R.id.result_text);
         infinityBlinkView = findViewById(R.id.infinity_blink_view);
+        infinityOverlay = findViewById(R.id.infinity_overlay);
 
         baseCodeDialog = new Dialog(this);
         baseCodeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         baseCodeDialog.setContentView(R.layout.base_code_dialog);
-        decimal = (TextView) baseCodeDialog.findViewById(R.id.base_decimal);
-        binary = (TextView) baseCodeDialog.findViewById(R.id.base_binary);
-        octal = (TextView) baseCodeDialog.findViewById(R.id.base_octal);
-        hexadecimal = (TextView) baseCodeDialog.findViewById(R.id.base_hexadecimal);
+        decimal = baseCodeDialog.findViewById(R.id.base_decimal);
+        binary = baseCodeDialog.findViewById(R.id.base_binary);
+        octal = baseCodeDialog.findViewById(R.id.base_octal);
+        hexadecimal = baseCodeDialog.findViewById(R.id.base_hexadecimal);
         baseCodeDialog.findViewById(R.id.base_code_close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +122,7 @@ public class HomeActivity extends NavigationBaseActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -148,13 +150,14 @@ public class HomeActivity extends NavigationBaseActivity
             shareApp();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public void onClick(View v) {
+        infinityOverlay.setVisibility(View.GONE);
         switch(v.getId()){
             case R.id.keyboard_button_0:
             case R.id.keyboard_button_1:
@@ -203,9 +206,6 @@ public class HomeActivity extends NavigationBaseActivity
                 break;
 
             case R.id.keyboard_button_delete:
-//                String expressionText = expression.getText().toString();
-//                if(expressionText.length() > 0)
-//                    expression.setText(expressionText.substring(0,expressionText.length()-1));
                 setUpdatedText(v);
                 break;
 
@@ -238,6 +238,7 @@ public class HomeActivity extends NavigationBaseActivity
                     expression.setText(result.getText());
                 }
             } catch (ArithmeticException e) {
+                infinityOverlay.setVisibility(View.VISIBLE);
                 infinityBlinkAnimation();
             } catch (IllegalExpressionException | EmptyExpressionException e){
                 if(isEqualPressed){
@@ -321,10 +322,12 @@ public class HomeActivity extends NavigationBaseActivity
         private boolean isEqualPressed;
         private Exception e;
         private String resultText;
+        private String expressionText;
 
         public ProcessEval(boolean isEqualPressed) {
             super();
             this.isEqualPressed = isEqualPressed;
+            this.expressionText = expression.getText().toString();
         }
 
         @Override
@@ -341,13 +344,13 @@ public class HomeActivity extends NavigationBaseActivity
         @Override
         protected Void doInBackground(Void... voids) {
             Log.e("TAG","background");
-            if(expression.getText().toString().equals("")){
+            if(expressionText.equals("")){
                 resultText = "";
                 return null;
             }
             round = getSharedPreferences("app",MODE_PRIVATE).getInt("round",2);
             try {
-                resultText = ControllerBinder.eval(expression.getText().toString(),round,infinityMode);
+                resultText = ControllerBinder.eval(expressionText,round,infinityMode);
             } catch (Exception e) {
                 this.e = e;
             }

@@ -33,10 +33,12 @@ public class ExpressionPostfixer {
                     stack.add(list.get(i));
                     break;
                 case CLOSE_BRACKET:
-                    while(stack.lastElement().getTag() != Tag.OPEN_BRACKET){
-                        postfix.add(stack.pop());
+                    if(stack.size() > 0) {
+                        while (stack.lastElement().getTag() != Tag.OPEN_BRACKET) {
+                            postfix.add(stack.pop());
+                        }
+                        stack.pop();
                     }
-                    stack.pop();
                     break;
             }
         }
