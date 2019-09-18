@@ -18,6 +18,7 @@ public class ExpressionOperations {
     private static final String EXPONENT_LIMIT_CROSSED_MESSAGE = "Limit for exponents is 3 digits.";
     private static final String NOT_DECIMAL_MESSAGE = "Decimal number not supported for exponent calculations";
     private static final String FACTORIAL_LIMIT_CROSSED_MESSAGE = "Limit for factorial is upto 1000";
+    private static final String DECIMAL_FACTORIAL_MESSAGE = "Cannot factorial for decimal numbers";
     private static final String NEGATIVE_FACTORIALS_MESSAGE = "Factorials for negative numbers is not possible";
     private static final String NEGATIVE_SQUARE_ROOTS_MESSAGE = "Cannot take square roots for negative number";
     private static Boolean infinityMode = false;
@@ -70,6 +71,9 @@ public class ExpressionOperations {
 
     //limit 1000
     public static String factorial(String num) throws LimitCrossedException {
+        if(num.contains(".")){
+            throw new ArithmeticException(DECIMAL_FACTORIAL_MESSAGE);
+        }
         Integer number = Integer.parseInt(num);
         if(!infinityMode) {
             if (num.length() > 5 || number / 12001 > 0)
